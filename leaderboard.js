@@ -28,9 +28,12 @@ if (Meteor.is_client) {
     'click input.sort': function() {
       var sortOrder = Session.get("sort_order");
 
-      sortOrder.score *= -1;
-      sortOrder.name *= -1;
-      Session.set("sort_order", sortOrder);
+      if (Object.keys(sortOrder)[0] == "score") {
+        Session.set("sort_order", { name: 1, score: -1 });
+      }
+      else {
+        Session.set("sort_order", { score: -1, name: 1 });
+      }
     }
   };
 
