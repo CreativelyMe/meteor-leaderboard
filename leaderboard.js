@@ -34,6 +34,11 @@ if (Meteor.is_client) {
       else {
         Session.set("sort_order", { score: -1, name: 1 });
       }
+    },
+    'click input.randomise': function() {
+      Players.find({}).forEach(function(player) {
+        Players.update(player, {$set: {score: randomScore()}});
+      });
     }
   };
 
@@ -42,6 +47,10 @@ if (Meteor.is_client) {
       Session.set("selected_player", this._id);
     }
   };
+}
+
+var randomScore = function() {
+  return Math.floor(Math.random()*10)*5;
 }
 
 // On server startup, create some players if the database is empty.
@@ -55,7 +64,7 @@ if (Meteor.is_server) {
                    "Nikola Tesla",
                    "Claude Shannon"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Math.random()*10)*5});
+        Players.insert({name: names[i], score: randomScore()});
     }
   });
 }
