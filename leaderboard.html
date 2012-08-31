@@ -5,6 +5,7 @@
 <body>
   <div id="outer">
     {{> leaderboard}}
+    {{> addPlayer}}
   </div>
 </body>
 
@@ -19,6 +20,7 @@
   <div class="details">
     <div class="name">{{selected_name}}</div>
     <input type="button" class="inc" value="Give 5 points" />
+    <input type="button" class="delete" value="Delete" />
   </div>
   {{/if}}
 
@@ -41,3 +43,13 @@
   </div>
 </template>
 
+<template name="addPlayer">
+    <div>
+        <div>Add a new player:</div>
+        <span class="name">Name:</span>
+        <input type="text" id="playerName" />
+        <span class="score">Score:</span>
+        <input type="text" id="playerScore" />
+        <input type="button" class="add" value="Add player" />
+    </div>
+</template>

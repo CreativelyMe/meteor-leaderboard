@@ -39,12 +39,23 @@ if (Meteor.is_client) {
       Players.find({}).forEach(function(player) {
         Players.update(player, {$set: {score: randomScore()}});
       });
+    },
+    'click input.delete': function() {
+      if (confirm('Are you sure you want to delete the player?')) {
+        Players.remove(Session.get("selected_player"));
+      }
     }
   };
 
   Template.player.events = {
     'click': function () {
       Session.set("selected_player", this._id);
+    }
+  };
+
+  Template.addPlayer.events = {
+    'click input.add': function () {
+      Players.insert({name: playerName.value, score: Number(playerScore.value)});
     }
   };
 }
